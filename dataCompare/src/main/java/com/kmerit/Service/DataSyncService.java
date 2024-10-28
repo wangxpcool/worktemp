@@ -1,6 +1,7 @@
 package com.kmerit.Service;
 
 import com.kmerit.entity.DataSyncType;
+import com.kmerit.reponsitory.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,10 @@ public class DataSyncService {
     DataReadService dataReadService;
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    UserRepository userRepository;
 
     public void sync(DataSyncType type) {
-        jdbcTemplate.execute("select * from tem");
+        userRepository.query();
 //        List<Map<String,Object>> list =  dataReadService.readData();
 
 

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController("/data/sync")
 public class DataSyncController {
 
@@ -20,7 +23,7 @@ public class DataSyncController {
     @GetMapping("/sync")
     public String sync(DataSyncType type) {
 
-        dataSyncService.sync(type);
+        List<Map<String, Object>> list =  dataSyncService.sync(type);
 
         return "data sync successfully";
     }

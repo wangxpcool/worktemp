@@ -4,6 +4,7 @@ import com.kmerit.entity.DataCompareType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -21,7 +22,7 @@ public class DataCompareService  extends Thread {
     }
 
     public void compare(DataCompareType type) {
-        Map<String, Object> dataMap = dataReadService.readData(type);
+        List<Map<String, Object>> dataList = dataReadService.readData(null);
 
         //对比数据 生成对比结果
         Map<String, Object> resultMap = null;

@@ -1,9 +1,9 @@
 package com.kmerit.Service;
 
 import com.kmerit.entity.DataSyncType;
-import com.kmerit.reponsitory.UserRepository;
+import com.kmerit.reponsitory.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,13 +16,31 @@ public class DataSyncService {
     DataReadService dataReadService;
 
     @Autowired
-    UserRepository userRepository;
+    QueryService queryService;
 
-    public void sync(DataSyncType type) {
-        userRepository.query();
-//        List<Map<String,Object>> list =  dataReadService.readData();
+    @Autowired
+    private ApplicationContext context;
 
+    DataReadService getInstance(DataSyncType type){
+        DataReadService dataReadService = null;
+        if ("db".equals(type.get()) ){
+            dataReadService = (DataReadService)context.getBean("DataReadFromCsvService");
+        }else if("csv".equals(type.getSourcType()) ){
+            dataReadService = (DataReadService)context.getBean("DataReadFromCsvService");
+        }else{
+            return null;
+        }
+        return dataReadService;
+    }
 
+    public Boolean sync(DataSyncType type) {
+        DataReadService dataReadService = getInstance(type);
+        if (dataReadService==null){
+            return false;
+        }
+        List<Map<String, Object>> list = dataReadService.readData(type);
+
+        return true;
     }
 
 

@@ -6,7 +6,7 @@ import java.util.Map;
 public class SqlGenerator {
 
     public static String generateInsertSql(Map<String, Object> data) {
-        String tableName = "summit.a_flow";
+        String tableName = "a_flow";
         StringBuilder sql = new StringBuilder();
 
         sql.append("INSERT INTO `").append(tableName).append("` (");

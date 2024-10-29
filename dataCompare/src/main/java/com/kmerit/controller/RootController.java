@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
-@RestController("/")
+@RestController("/root")
 public class RootController {
 
 

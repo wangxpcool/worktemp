@@ -14,9 +14,6 @@ import java.util.Map;
 public class DataSyncService {
 
     @Autowired
-    QueryService queryService;
-
-    @Autowired
     private Map<String, DataReadService> instances;
     @Autowired
     DataReadFromCsvService dataReadFromCsvService;

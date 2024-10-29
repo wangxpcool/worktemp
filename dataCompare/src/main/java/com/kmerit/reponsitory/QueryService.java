@@ -25,7 +25,7 @@ public class QueryService {
 
     public List<Map<String, Object>> getPrimaryData(DataSyncType type) {
         //type.getsql
-        return primaryJdbcTemplate.queryForList("SELECT * FROM primary_table");
+        return primaryJdbcTemplate.queryForList("SELECT * FROM a_flow");
     }
 
     public List<Map<String, Object>> getSecondaryData(DataSyncType type) {

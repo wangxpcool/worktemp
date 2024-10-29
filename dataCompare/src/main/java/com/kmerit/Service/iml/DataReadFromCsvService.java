@@ -23,7 +23,7 @@ public class DataReadFromCsvService implements DataReadService {
     @Override
     public List<Map<String, Object>> readData(DataSyncType type) {
         //读取数据内容  返回map对象，包括a列数据 b列数据
-        //todo key 值
+        //todo key 值  key值可能在表头上，这个得看数据格式
         String filePath = "C:\\Users\\sharping\\Desktop\\work\\test\\2.csv";
         Path path = Paths.get(filePath);
         List result = new ArrayList();

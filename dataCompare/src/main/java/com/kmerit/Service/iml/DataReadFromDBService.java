@@ -20,6 +20,7 @@ public class DataReadFromDBService  implements DataReadService {
     public List<Map<String, Object>> readData(DataSyncType type) {
         //读取数据内容  返回map对象，包括a列数据 b列数据
         List<Map<String, Object>> data = queryService.getPrimaryData(type);
+        data.stream().forEach(map-> System.out.println(map));
         return data;
     }
 

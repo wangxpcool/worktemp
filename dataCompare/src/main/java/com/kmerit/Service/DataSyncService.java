@@ -17,7 +17,8 @@ public class DataSyncService {
     private Map<String, DataReadService> instances;
     @Autowired
     DataReadFromCsvService dataReadFromCsvService;
-
+    @Autowired
+    QueryService queryService;
 
     public Boolean sync(DataSyncType type) {
         List<Map<String, Object>> list;
@@ -27,6 +28,9 @@ public class DataSyncService {
         } else {
             throw new IllegalArgumentException("No such bean: " + type.getSourcType());
         }
+        list.stream().forEach(stringObjectMap -> {
+            queryService.syncData(stringObjectMap);
+        });
 
         return true;
     }

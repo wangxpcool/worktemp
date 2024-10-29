@@ -3,6 +3,7 @@ package com.kmerit.reponsitory;
 
 import com.kmerit.entity.DataCompareType;
 import com.kmerit.entity.DataSyncType;
+import com.kmerit.util.SqlGenerator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,9 @@ public class QueryService {
 
     public List<Map<String, Object>> getSecondaryData(DataSyncType type) {
         return secondaryJdbcTemplate.queryForList("SELECT * FROM secondary_table");
+    }
+    public int syncData(Map<String, Object> map) {
+        String sql = SqlGenerator.generateInsertSql(map);
+        return secondaryJdbcTemplate.update(sql);
     }
 }

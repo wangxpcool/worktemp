@@ -25,7 +25,7 @@ public class DataSyncController {
     @GetMapping("/sync")
     public String sync() {
         DataSyncType type= new DataSyncType();
-        type.setSourcType("dataReadFromCsvService");
+        type.setSourcType("dataReadFromDBService");
         Boolean result =  dataSyncService.sync(type);
 
         return "data sync successfully";

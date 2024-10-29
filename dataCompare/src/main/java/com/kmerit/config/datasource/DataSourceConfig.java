@@ -26,6 +26,12 @@ public class DataSourceConfig {
         return DruidDataSourceBuilder.create().build();
     }
 
+    @Bean(name = "thirdDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.third")
+    public DataSource thirdDataSource() {
+        return DruidDataSourceBuilder.create().build();
+    }
+
     // 配置事务管理器
     @Primary
     @Bean(name = "primaryTransactionManager")
@@ -35,6 +41,11 @@ public class DataSourceConfig {
 
     @Bean(name = "secondaryTransactionManager")
     public DataSourceTransactionManager secondaryTransactionManager(@Qualifier("secondaryDataSource") DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean(name = "thirdTransactionManager")
+    public DataSourceTransactionManager thirdTransactionManager(@Qualifier("thirdDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 }

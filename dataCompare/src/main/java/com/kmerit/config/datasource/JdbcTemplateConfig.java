@@ -19,4 +19,9 @@ public class JdbcTemplateConfig {
     public JdbcTemplate secondaryJdbcTemplate(@Qualifier("secondaryDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
+
+    @Bean(name = "thirdJdbcTemplate")
+    public JdbcTemplate thirdJdbcTemplate(@Qualifier("thirdDataSource") DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
 }

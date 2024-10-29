@@ -29,7 +29,7 @@ public class DataSyncService {
             throw new IllegalArgumentException("No such bean: " + type.getSourcType());
         }
         list.stream().forEach(stringObjectMap -> {
-            queryService.syncData(stringObjectMap);
+            queryService.syncData(stringObjectMap,type.getTableNameLocal());
         });
 
         return true;

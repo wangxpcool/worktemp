@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class SqlGenerator {
 
-    public static String generateInsertSql(Map<String, Object> data) {
-        String tableName = "a_flow";
+    public static String generateInsertSql(Map<String, Object> data,String tableName) {
+
         StringBuilder sql = new StringBuilder();
 
         sql.append("INSERT INTO `").append(tableName).append("` (");
@@ -55,7 +55,7 @@ public class SqlGenerator {
         data.put("buy", "yy");
         System.out.println(data);
         // 这里可以调用之前的 generateInsertSql 方法
-        String sql = generateInsertSql(data);
+        String sql = generateInsertSql(data,"a_flow");
         System.out.println(sql);
     }
 }

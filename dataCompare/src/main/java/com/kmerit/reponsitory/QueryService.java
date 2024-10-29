@@ -34,6 +34,7 @@ public class QueryService {
     }
     public int syncData(Map<String, Object> map) {
         String sql = SqlGenerator.generateInsertSql(map);
+        System.out.println(sql);
         return secondaryJdbcTemplate.update(sql);
     }
 }

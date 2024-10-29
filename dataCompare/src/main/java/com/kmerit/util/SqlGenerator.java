@@ -18,7 +18,10 @@ public class SqlGenerator {
         for (Map.Entry<String, Object> entry : data.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
-
+            // 特殊处理 create_time 字段
+            if ("create_time".equals(key) && value instanceof String) {
+                value = ((String) value).replace("T", " "); // 去掉 'T'
+            }
             // 添加字段
             fields.append("`").append(key).append("`, ");
 
@@ -47,7 +50,7 @@ public class SqlGenerator {
         data.put("amount", 1.00);
         data.put("sell", "xx");
         data.put("buy", "yy");
-
+        System.out.println(data);
         // 这里可以调用之前的 generateInsertSql 方法
         String sql = generateInsertSql(data);
         System.out.println(sql);

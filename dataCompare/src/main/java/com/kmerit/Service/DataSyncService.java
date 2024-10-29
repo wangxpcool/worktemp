@@ -23,7 +23,7 @@ public class DataSyncService {
 
     DataReadService getInstance(DataSyncType type){
         DataReadService dataReadService = null;
-        if ("db".equals(type.get()) ){
+        if ("db".equals(type.getSourcType()) ){
             dataReadService = (DataReadService)context.getBean("DataReadFromCsvService");
         }else if("csv".equals(type.getSourcType()) ){
             dataReadService = (DataReadService)context.getBean("DataReadFromCsvService");

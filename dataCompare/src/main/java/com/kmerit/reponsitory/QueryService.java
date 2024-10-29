@@ -42,6 +42,9 @@ public class QueryService {
     public int syncData(Map<String, Object> map, String tableName) {
         String sql = SqlGenerator.generateInsertSql(map,tableName);
         System.out.println(sql);
-        return secondaryJdbcTemplate.update(sql);
+        return thirdJdbcTemplate.update(sql);
+    }
+    public int delete( String tableName) {
+        return thirdJdbcTemplate.update("delete from " + tableName);
     }
 }

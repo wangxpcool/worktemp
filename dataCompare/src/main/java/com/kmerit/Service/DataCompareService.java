@@ -44,22 +44,28 @@ public class DataCompareService extends Thread {
             list.stream().forEach(stringObjectMap -> {
                 DataSyncType localAType = new DataSyncType();
                 localAType.setSql("select * from a_flow_a a where a.id= " + stringObjectMap.get("id"));
-                List<Map<String, Object>> listA = queryService.getPrimaryData(localAType);
+                List<Map<String, Object>> listA = queryService.getThirdData(localAType);
                 Map<String, Object> mapA = listA.get(0);
 
                 DataSyncType localBType = new DataSyncType();
                 localBType.setSql("select * from a_flow_b a where a.id= " + stringObjectMap.get("id"));
-                List<Map<String, Object>> listB = queryService.getSecondaryData(localBType);
+                List<Map<String, Object>> listB = queryService.getThirdData(localBType);
                 Map<String, Object> mapB = listB.get(0);
 
                 //默认结果为不同
                 Boolean equalsFlag = true;
                 List<String> column = new ArrayList<>();
                 mapA.keySet().forEach(r -> {
-                    String valueA = (String) mapA.get(r);
-                    String valueB = (String) mapB.get(r);
-                    if (!valueA.equals(valueB)) {
-                        column.add(r);
+                    if (r.equals("012")){
+                        System.out.println();
+                    }
+                    Object obj =mapA.get(r);
+                    if (obj instanceof java.lang.String){
+                        String valueA = (String) mapA.get(r);
+                        String valueB = (String) mapB.get(r);
+                        if (!valueA.equals(valueB)) {
+                            column.add(r);
+                        }
                     }
                 });
                 if (column.size() > 0) {

@@ -1,5 +1,7 @@
 package com.kmerit.util;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,8 +21,9 @@ public class SqlGenerator {
             String key = entry.getKey();
             Object value = entry.getValue();
             // 特殊处理 create_time 字段
-            if ("create_time".equals(key) && value instanceof String) {
-                value = ((String) value).replace("T", " "); // 去掉 'T'
+            if ("create_time".equals(key) && value instanceof LocalDateTime) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                value = ((LocalDateTime) value).format(formatter); // 格式化 LocalDateTime
             }
             // 添加字段
             fields.append("`").append(key).append("`, ");
@@ -45,7 +48,7 @@ public class SqlGenerator {
     public static void main(String[] args) {
         Map<String, Object> data = new HashMap<>();
         data.put("id", "019");
-        data.put("create_time", "2024-10-29 10:08:08");
+        data.put("create_time", "2024-10-29T10:08:08");
         data.put("create_by", "user");
         data.put("amount", 1.00);
         data.put("sell", "xx");

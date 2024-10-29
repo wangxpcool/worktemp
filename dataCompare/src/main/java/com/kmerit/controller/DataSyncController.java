@@ -23,7 +23,7 @@ public class DataSyncController {
     @GetMapping("/sync")
     public String sync(DataSyncType type) {
 
-        List<Map<String, Object>> list =  dataSyncService.sync(type);
+        Boolean result =  dataSyncService.sync(type);
 
         return "data sync successfully";
     }

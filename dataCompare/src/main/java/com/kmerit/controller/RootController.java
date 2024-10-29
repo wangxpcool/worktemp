@@ -4,11 +4,13 @@ import com.kmerit.Service.DataCompareService;
 import com.kmerit.entity.DataCompareType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
-@RestController("/root")
+@RestController
+@RequestMapping("/root")
 public class RootController {
 
 
@@ -21,9 +23,8 @@ public class RootController {
         数据对比接口 对比两方数据 并将结果输出
      */
     @GetMapping("/")
-    public String sendMessage(DataCompareType type) {
-
-        threadPoolExecutor.execute(null);
+    public String sendMessage() {
+        DataCompareType type =null;
         dataCompareService.compare(type);
 
         return "Message sent successfully";

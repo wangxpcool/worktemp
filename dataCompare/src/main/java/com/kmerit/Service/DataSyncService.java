@@ -1,5 +1,6 @@
 package com.kmerit.Service;
 
+import com.kmerit.Service.iml.DataReadFromCsvService;
 import com.kmerit.entity.DataSyncType;
 import com.kmerit.reponsitory.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,32 +14,22 @@ import java.util.Map;
 public class DataSyncService {
 
     @Autowired
-    DataReadService dataReadService;
-
-    @Autowired
     QueryService queryService;
 
     @Autowired
-    private ApplicationContext context;
+    private Map<String, DataReadService> instances;
+    @Autowired
+    DataReadFromCsvService dataReadFromCsvService;
 
-    DataReadService getInstance(DataSyncType type){
-        DataReadService dataReadService = null;
-        if ("db".equals(type.getSourcType()) ){
-            dataReadService = (DataReadService)context.getBean("DataReadFromCsvService");
-        }else if("csv".equals(type.getSourcType()) ){
-            dataReadService = (DataReadService)context.getBean("DataReadFromCsvService");
-        }else{
-            return null;
-        }
-        return dataReadService;
-    }
 
     public Boolean sync(DataSyncType type) {
-        DataReadService dataReadService = getInstance(type);
-        if (dataReadService==null){
-            return false;
+        List<Map<String, Object>> list;
+        DataReadService instance = instances.get(type.getSourcType());
+        if (instance != null) {
+            list = instance.readData(type);
+        } else {
+            throw new IllegalArgumentException("No such bean: " + type.getSourcType());
         }
-        List<Map<String, Object>> list = dataReadService.readData(type);
 
         return true;
     }

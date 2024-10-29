@@ -5,6 +5,7 @@ import com.kmerit.entity.DataCompareType;
 import com.kmerit.entity.DataSyncType;
 import com.kmerit.reponsitory.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class DataReadFromCsvService implements DataReadService {
 
     @Override

@@ -3,6 +3,7 @@ package com.kmerit.Service;
 import com.kmerit.Service.iml.DataReadFromCsvService;
 import com.kmerit.entity.DataSyncType;
 import com.kmerit.reponsitory.QueryService;
+import com.kmerit.util.SqlGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,12 @@ public class DataSyncService {
         }
 
         //建表语句
-
-        queryService.delete(type.getTableNameLocal());
-
+        Map<String, Object> objectMap = list.get(0);
+        String sql = SqlGenerator.generateCreateTableSql(objectMap, type.getTableNameLocal());
+        System.out.println(sql);
+        queryService.createTable(sql,type.getTableNameLocal());
         list.stream().forEach(stringObjectMap -> {
-            queryService.syncData(stringObjectMap,type.getTableNameLocal());
+            queryService.syncData(stringObjectMap, type.getTableNameLocal());
         });
 
         return true;

@@ -44,6 +44,10 @@ public class QueryService {
         System.out.println(sql);
         return thirdJdbcTemplate.update(sql);
     }
+    public void createTable( String sql,String tableName) {
+        thirdJdbcTemplate.update("DROP TABLE IF EXISTS "+tableName);
+        thirdJdbcTemplate.update(sql);
+    }
     public int delete( String tableName) {
         return thirdJdbcTemplate.update("delete from " + tableName);
     }

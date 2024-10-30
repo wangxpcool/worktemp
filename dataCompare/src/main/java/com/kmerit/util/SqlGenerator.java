@@ -8,8 +8,8 @@ import java.util.Map;
 public class SqlGenerator {
 
 
-    private static String generateCreateTableSql(Map<String, Object> data,String tableName) {
-        StringBuilder sql = new StringBuilder("CREATE TABLE ");
+    public static String generateCreateTableSql(Map<String, Object> data,String tableName) {
+        StringBuilder sql = new StringBuilder("CREATE TABLE ") ;
         sql.append(tableName).append("(\n");
         for (String key : data.keySet()) {
             String columnType = key.equals("create_time") ? "DATETIME" : "VARCHAR(255)";

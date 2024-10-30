@@ -45,9 +45,10 @@ public class DataSyncController {
         DataSyncType dataSourceSyncA = new DataSyncType();
         dataSourceSyncA.setTableNameLocal("a_flow_a");
         dataSourceSyncA.setTableName("a_flow");
-        dataSourceSyncA.setSourcType("dataReadFromDBService");
-        dataSourceSyncA.setDb("icbc");
-        dataSourceSyncA.setSql("SELECT * FROM a_flow");
+        dataSourceSyncA.setSourcType("dataReadFromCsvService");
+        dataSourceSyncA.setSourcPath("C:\\Users\\sharping\\Documents\\4.csv");
+//        dataSourceSyncA.setDb("icbc");
+//        dataSourceSyncA.setSql("SELECT * FROM a_flow");
 
         DataSyncType dataSourceSyncB = new DataSyncType();
         dataSourceSyncB.setTableNameLocal("a_flow_b");

@@ -55,7 +55,7 @@ public class DataCompareService extends Thread {
             System.out.println(result);
             compareResultOutputService.output(result);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(),e);
             return e.getMessage();
         }
         return "data compare successfully";
@@ -68,34 +68,34 @@ public class DataCompareService extends Thread {
         String primaryKey = type.getPrimaryKey();
         List<Map<String, Object>> list;
         DataSyncType localType = new DataSyncType();
-        String querySql =  String.format("SELECT a.%s FROM %s a, %s b WHERE a.%s = b.%s",
+        String querySql = String.format("SELECT a.%s FROM %s a, %s b WHERE a.%s = b.%s",
                 primaryKey, tableName_a, tableName_b, primaryKey, primaryKey);
         localType.setSql(querySql);
         list = queryService.getThirdData(localType);
         //对比数据 生成对比结果
 
         //相同结果集
-        List<Map<String,Object>> equalsResultList = new ArrayList<>();
+        List<Map<String, Object>> equalsResultList = new ArrayList<>();
         //不同结果集
-        List<Map<String,Object>> notEqualsResultList = new ArrayList<>();
+        List<Map<String, Object>> notEqualsResultList = new ArrayList<>();
 
         Map<String, Object> resultMap = new HashMap<>();
         if (list != null && !list.isEmpty()) {
             list.stream().forEach(stringObjectMap -> {
                 //主键值
-                String primaryKeyValue =(String) stringObjectMap.get("id");
+                String primaryKeyValue = (String) stringObjectMap.get("id");
 
 
                 DataSyncType localAType = new DataSyncType();
-                String queryDataASql =  String.format("select * from %s a where a.%s= %s",
-                        tableName_a, primaryKey,primaryKeyValue);
+                String queryDataASql = String.format("select * from %s a where a.%s= %s",
+                        tableName_a, primaryKey, primaryKeyValue);
                 localAType.setSql(queryDataASql);
                 List<Map<String, Object>> listA = queryService.getThirdData(localAType);
                 Map<String, Object> mapA = listA.get(0);
 
                 DataSyncType localBType = new DataSyncType();
-                String queryDataBSql =  String.format("select * from %s a where a.%s= %s",
-                        tableName_b, primaryKey,primaryKeyValue);
+                String queryDataBSql = String.format("select * from %s a where a.%s= %s",
+                        tableName_b, primaryKey, primaryKeyValue);
                 localBType.setSql(queryDataBSql);
                 List<Map<String, Object>> listB = queryService.getThirdData(localBType);
                 Map<String, Object> mapB = listB.get(0);
@@ -111,31 +111,31 @@ public class DataCompareService extends Thread {
                     } else {
                         comparator = comparatorFactoryMap.get("normalComparator");
                     }
-                    String valueA = (String) mapA.get(r);
-                    String valueB = (String) mapB.get(r);
+                    Object valueA = mapA.get(r);
+                    Object valueB = mapB.get(r);
                     if (!comparator.compare(valueA, valueB, null)) {
                         column.add(r);
                     }
                 });
                 if (column.size() > 0) {
                     equalsFlag = false;
-                    Map<String,Object> diff = new HashMap<>();
-                    diff.put("dataA",mapA);
-                    diff.put("dataB",mapB);
-                    Map<String,Object> diffAandB = new HashMap<>();
-                    column.stream().forEach(r->{
-                        String diffStr = "数据A："+mapA.get(r)+" 数据B："+mapB.get(r);
-                        diffAandB.put(r,diffStr);
+                    Map<String, Object> diff = new HashMap<>();
+                    diff.put("dataA", mapA);
+                    diff.put("dataB", mapB);
+                    Map<String, Object> diffAandB = new HashMap<>();
+                    column.stream().forEach(r -> {
+                        String diffStr = "数据A：" + mapA.get(r) + " 数据B：" + mapB.get(r);
+                        diffAandB.put(r, diffStr);
                     });
-                    diff.put("diff",diffAandB);
-                    notEqualsResultList.add(mapA);
-                }else{
+                    diff.put("diff", diffAandB);
+                    notEqualsResultList.add(diff);
+                } else {
                     equalsResultList.add(mapA);
                 }
             });
         }
-        resultMap.put("equals",equalsResultList);
-        resultMap.put("notEquals",notEqualsResultList);
+        resultMap.put("equals", equalsResultList);
+        resultMap.put("notEquals", notEqualsResultList);
         return resultMap;
 
 

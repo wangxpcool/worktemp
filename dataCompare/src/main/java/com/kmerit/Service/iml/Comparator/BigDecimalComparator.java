@@ -16,7 +16,7 @@ public class BigDecimalComparator implements ComparatorFactory{
         if (obj1 == null || obj2 == null) {
             return false; // 其中一个为null
         }
-        //格式化todo
+        //todo 格式化
         BigDecimal amount1 = (BigDecimal)obj1;
         BigDecimal amount2 = (BigDecimal)obj2;
         return amount1.compareTo(amount2) == 0; // 使用compareTo方法进行比较

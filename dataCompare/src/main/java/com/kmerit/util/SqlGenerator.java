@@ -12,6 +12,7 @@ public class SqlGenerator {
         StringBuilder sql = new StringBuilder("CREATE TABLE ") ;
         sql.append(tableName).append("(\n");
         for (String key : data.keySet()) {
+            //todo 这里可能还要根据配置去判断
             String columnType = key.equals("create_time") ? "DATETIME" : "VARCHAR(255)";
             sql.append("    ").append(key).append(" ").append(columnType).append(",\n");
         }

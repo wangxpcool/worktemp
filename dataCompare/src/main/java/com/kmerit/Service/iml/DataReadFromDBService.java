@@ -1,7 +1,6 @@
 package com.kmerit.Service.iml;
 
 import com.kmerit.Service.DataReadService;
-import com.kmerit.entity.DataCompareType;
 import com.kmerit.entity.DataSyncType;
 import com.kmerit.reponsitory.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;

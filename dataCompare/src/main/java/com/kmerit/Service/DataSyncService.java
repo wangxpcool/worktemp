@@ -28,7 +28,11 @@ public class DataSyncService {
         } else {
             throw new IllegalArgumentException("No such bean: " + type.getSourcType());
         }
+
+        //建表语句
+
         queryService.delete(type.getTableNameLocal());
+
         list.stream().forEach(stringObjectMap -> {
             queryService.syncData(stringObjectMap,type.getTableNameLocal());
         });

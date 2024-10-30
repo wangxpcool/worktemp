@@ -10,6 +10,7 @@ public class DataCompareType {
     private Integer pageSize;
     private String compareName;
     private String compareConfigIndex;
+    private String primaryKey;//后面可能变成多个
     DataSyncType datasourceA;
     DataSyncType datasourceB;
 

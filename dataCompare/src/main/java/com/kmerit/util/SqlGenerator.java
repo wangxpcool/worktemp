@@ -7,6 +7,22 @@ import java.util.Map;
 
 public class SqlGenerator {
 
+
+    private static String generateCreateTableSql(Map<String, Object> data,String tableName) {
+        StringBuilder sql = new StringBuilder("CREATE TABLE ");
+        sql.append(tableName).append("(\n");
+        for (String key : data.keySet()) {
+            String columnType = key.equals("create_time") ? "DATETIME" : "VARCHAR(255)";
+            sql.append("    ").append(key).append(" ").append(columnType).append(",\n");
+        }
+
+        // Remove the last comma and newline
+        sql.setLength(sql.length() - 2);
+        sql.append("\n);");
+
+        return sql.toString();
+    }
+
     public static String generateInsertSql(Map<String, Object> data,String tableName) {
 
         StringBuilder sql = new StringBuilder();
@@ -55,7 +71,8 @@ public class SqlGenerator {
         data.put("buy", "yy");
         System.out.println(data);
         // 这里可以调用之前的 generateInsertSql 方法
-        String sql = generateInsertSql(data,"a_flow");
+//        String sql = generateInsertSql(data,"a_flow");
+        String sql = generateCreateTableSql(data,"a_flow");
         System.out.println(sql);
     }
 }

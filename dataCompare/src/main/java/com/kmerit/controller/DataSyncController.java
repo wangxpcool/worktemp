@@ -59,8 +59,8 @@ public class DataSyncController {
         DataCompareType compareType = new DataCompareType();
         compareType.setDatasourceA(dataSourceSyncA);
         compareType.setDatasourceB(dataSourceSyncB);
-        dataCompareService.compare(compareType);
+        compareType.setPrimaryKey("id");
+        return dataCompareService.compare(compareType);
 
-        return "data sync successfully";
     }
 }

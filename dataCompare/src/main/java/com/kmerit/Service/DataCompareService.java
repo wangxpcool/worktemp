@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class DataCompareService extends Thread {
+public class DataCompareService {
 
     @Autowired
     CompareResultOutputService compareResultOutputService;
@@ -33,12 +34,8 @@ public class DataCompareService extends Thread {
 
     static Logger logger = LoggerFactory.getLogger(DataCompareService.class);
 
-    @Override
-    public void run() {
-
-    }
-
     //对比方式1 将源a表 源b表数据同步至本地库local,我这边查询出来主键一致的，进行比对
+    @Async("taskExecutor") // 指定自定义线程池
     public String compare(DataCompareType type) {
 
         try {
@@ -54,7 +51,7 @@ public class DataCompareService extends Thread {
             System.out.println(result);
             compareResultOutputService.output(result);
         } catch (Exception e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
             return e.getMessage();
         }
         return "data compare successfully";

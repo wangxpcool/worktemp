@@ -1,5 +1,6 @@
 package com.kmerit.Service;
 
+import com.kmerit.config.TaskStatusManager;
 import com.kmerit.entity.DataCompareType;
 import com.kmerit.entity.DataSyncType;
 import com.kmerit.reponsitory.QueryService;
@@ -30,13 +31,16 @@ public class DataCompareService {
     QueryService queryService;
 
     @Autowired
+    private TaskStatusManager taskStatusManager;
+
+    @Autowired
     private Map<String, ComparatorFactory> comparatorFactoryMap;
 
     static Logger logger = LoggerFactory.getLogger(DataCompareService.class);
 
     //对比方式1 将源a表 源b表数据同步至本地库local,我这边查询出来主键一致的，进行比对
     @Async("taskExecutor") // 指定自定义线程池
-    public String compare(DataCompareType type) {
+    public String compare(DataCompareType type,String jobName) {
 
         try {
             //前置任务1 数据同步：读取数据并落本地库
@@ -55,9 +59,12 @@ public class DataCompareService {
             System.out.println(result);
             compareResultOutputService.output(result);
             logger.info(">>>>>>>>任务4 比对内容 执行完毕");
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return e.getMessage();
+        }finally {
+            taskStatusManager.markTaskCompleted(jobName);
         }
         return "data compare successfully";
     }

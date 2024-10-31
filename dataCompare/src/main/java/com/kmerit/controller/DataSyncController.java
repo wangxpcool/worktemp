@@ -43,19 +43,19 @@ public class DataSyncController {
     public String compare() {
         //初始化 配置值
         DataSyncType dataSourceSyncA = new DataSyncType();
-        dataSourceSyncA.setTableNameLocal("a_flow_a");
-        dataSourceSyncA.setTableName("a_flow");
+        dataSourceSyncA.setTableNameLocal("trade_info_a");
+        dataSourceSyncA.setTableName("trade_info");
         dataSourceSyncA.setSourcType("dataReadFromCsvService");
-        dataSourceSyncA.setSourcPath("C:\\Users\\sharping\\Documents\\4.csv");
+        dataSourceSyncA.setSourcPath("C:\\Users\\sharping\\Desktop\\trade_info.csv");
 //        dataSourceSyncA.setDb("icbc");
 //        dataSourceSyncA.setSql("SELECT * FROM a_flow");
 
         DataSyncType dataSourceSyncB = new DataSyncType();
-        dataSourceSyncB.setTableNameLocal("a_flow_b");
-        dataSourceSyncB.setTableName("a_flow");
+        dataSourceSyncB.setTableNameLocal("trade_info_b");
+        dataSourceSyncB.setTableName("trade_info");
         dataSourceSyncB.setSourcType("dataReadFromDBService");
         dataSourceSyncB.setDb("summit");
-        dataSourceSyncB.setSql("SELECT * FROM a_flow");
+        dataSourceSyncB.setSql("SELECT * FROM trade_info");
 
         DataCompareType compareType = new DataCompareType();
         compareType.setDatasourceA(dataSourceSyncA);

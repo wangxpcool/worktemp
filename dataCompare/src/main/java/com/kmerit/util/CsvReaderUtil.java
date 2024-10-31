@@ -45,13 +45,15 @@ public class CsvReaderUtil {
                 // 所有数据读取完成后执行
                 logger.info("All data has been read.");
             }
+
         }).headRowNumber(0).sheet().doRead();
         return dataList;
     }
 
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\sharping\\Desktop\\a_flow.csv"; // 替换为你的 CSV 文件路径
+        String filePath = "C:\\Users\\sharping\\Desktop\\trade_info.csv"; // 替换为你的 CSV 文件路径
         List<Map<String, Object>> dataList = readDataFromCsv(filePath);
+
         log.info(dataList.toString());
 
     }

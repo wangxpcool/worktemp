@@ -38,10 +38,10 @@ public class SqlGenerator {
             String key = entry.getKey();
             Object value = entry.getValue();
             // 特殊处理 create_time 字段
-            if ("create_time".equals(key) && value instanceof LocalDateTime) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                value = ((LocalDateTime) value).format(formatter); // 格式化 LocalDateTime
-            }
+//            if ("create_time".equals(key) && value instanceof LocalDateTime) {
+//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//                value = ((LocalDateTime) value).format(formatter); // 格式化 LocalDateTime
+//            }
             // 添加字段
             fields.append("`").append(key).append("`, ");
 

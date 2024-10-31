@@ -1,15 +1,19 @@
 package com.kmerit.util;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SqlGenerator {
 
 
-    public static String generateCreateTableSql(Map<String, Object> data,String tableName) {
-        StringBuilder sql = new StringBuilder("CREATE TABLE ") ;
+    public static String generateCreateTableSql(Map<String, Object> data, String tableName) {
+        StringBuilder sql = new StringBuilder("CREATE TABLE ");
         sql.append(tableName).append("(\n");
         for (String key : data.keySet()) {
             //todo 这里可能还要根据配置去判断
@@ -24,7 +28,7 @@ public class SqlGenerator {
         return sql.toString();
     }
 
-    public static String generateInsertSql(Map<String, Object> data,String tableName) {
+    public static String generateInsertSql(Map<String, Object> data, String tableName) {
 
         StringBuilder sql = new StringBuilder();
 
@@ -48,6 +52,14 @@ public class SqlGenerator {
             // 添加值，注意对字符串的处理
             if (value instanceof String) {
                 values.append("'").append(value).append("', ");
+            } else if (value instanceof BigDecimal) {
+                values.append("'").append((value).toString()).append("', ");
+            } else if (value instanceof Timestamp) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                values.append("'").append(sdf.format(value)).append("', ");
+            } else if (value instanceof Date) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                values.append("'").append(sdf.format(value)).append("', ");
             } else {
                 values.append(value).append(", ");
             }
@@ -72,8 +84,8 @@ public class SqlGenerator {
         data.put("buy", "yy");
         System.out.println(data);
         // 这里可以调用之前的 generateInsertSql 方法
-//        String sql = generateInsertSql(data,"a_flow");
-        String sql = generateCreateTableSql(data,"a_flow");
+        String sql = generateInsertSql(data, "a_flow");
+//        String sql = generateCreateTableSql(data,"a_flow");
         System.out.println(sql);
     }
 }

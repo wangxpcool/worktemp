@@ -42,14 +42,19 @@ public class DataCompareService {
             //前置任务1 数据同步：读取数据并落本地库
             dataSyncService.sync(type.getDatasourceA());
             dataSyncService.sync(type.getDatasourceB());
+            logger.info(">>>>>>>>任务1 数据同步：读取数据并落本地库 执行完毕");
 
             //任务2 格式化
+            logger.info(">>>>>>>>任务2 格式化 执行完毕");
+
             //任务3 比对总数
+            logger.info(">>>>>>>>任务3 比对总数 执行完毕");
 
             //任务4 比对内容
             Map<String, Object> result = compareDiff(type);
             System.out.println(result);
             compareResultOutputService.output(result);
+            logger.info(">>>>>>>>任务4 比对内容 执行完毕");
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return e.getMessage();

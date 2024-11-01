@@ -31,10 +31,17 @@ public class CompareResultOutputService {
 
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
                     if (entry.getKey().equals("diff")){
+                        Map<String,Object> diffMap = (Map<String,Object>)entry.getValue();
+                        sb.append("diff: \n"); // 换行
+                        diffMap.keySet().stream().forEach(r->{
+                            sb.append(r).append(": ").append(diffMap.get(r)).append(", ");
+                            sb.append("\n"); // 换行
+                        });
                         sb.append(entry.getKey()).append(": ").append(entry.getValue()).append(", ");
                     }else{
                         sb.append(entry.getKey()).append(": ").append(entry.getValue()).append(", ");
                     }
+                    sb.append("\n"); // 换行
                 }
                 // 去掉最后一个逗号和空格
                 if (sb.length() > 0) {

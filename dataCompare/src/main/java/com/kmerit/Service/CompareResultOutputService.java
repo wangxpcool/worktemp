@@ -70,10 +70,11 @@ public class CompareResultOutputService {
 
     public static void writeListToFile(List<Map<String, Object>> list, String filePath,String project) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(project);
+            writer.newLine(); // 换行
             for (Map<String, Object> map : list) {
                 StringBuilder sb = new StringBuilder();
-                writer.write(project);
-                writer.newLine(); // 换行
+
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
                     if (entry.getKey().equals("diff")){
                         writeMapToFile(map, writer);

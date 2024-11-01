@@ -68,7 +68,7 @@ public class DataSyncController {
         dataSourceSyncB.setTableNameLocal("trade_info_b");
         dataSourceSyncB.setTableName("trade_info");
         dataSourceSyncB.setSourcType("dataReadFromDBService");
-        dataSourceSyncB.setDb("summit");
+        dataSourceSyncB.setDb("icbc");
         dataSourceSyncB.setSql("SELECT * FROM trade_info");
 
         DataCompareType compareType = new DataCompareType();

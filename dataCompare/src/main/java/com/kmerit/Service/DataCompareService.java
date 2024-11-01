@@ -114,14 +114,17 @@ public class DataCompareService {
                 mapA.keySet().forEach(r -> {
                     Object obj = mapA.get(r);
                     ComparatorFactory comparator;
+                    String format = null;
                     if (obj instanceof BigDecimal) {
                         comparator = comparatorFactoryMap.get("bigDecimalComparator");
+                        format = type.getNumberFormat();
+
                     } else {
                         comparator = comparatorFactoryMap.get("normalComparator");
                     }
                     Object valueA = mapA.get(r);
                     Object valueB = mapB.get(r);
-                    if (!comparator.compare(valueA, valueB, null)) {
+                    if (!comparator.compare(valueA, valueB, format)) {
                         column.add(r);
                     }
                 });

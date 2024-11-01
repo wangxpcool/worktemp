@@ -75,6 +75,7 @@ public class DataSyncController {
         compareType.setDatasourceA(dataSourceSyncA);
         compareType.setDatasourceB(dataSourceSyncB);
         compareType.setPrimaryKey("id");
+        compareType.setNumberFormat("#.####");
         compareType.setOutputFilePath("C:\\Users\\sharping\\Desktop\\tmp\\"+jobName+".txt");
         return dataCompareService.compare(compareType, jobName);
 

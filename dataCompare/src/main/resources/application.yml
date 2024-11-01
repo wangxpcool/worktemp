@@ -36,5 +36,5 @@ logging:
   level:
     org:
       springframework:
-        transaction: DEBUG
-    root: debug
+        transaction: info
+    root: info

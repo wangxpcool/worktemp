@@ -57,7 +57,7 @@ public class DataCompareService {
             //任务4 比对内容
             Map<String, Object> result = compareDiff(type);
             System.out.println(result);
-            compareResultOutputService.output(result);
+            compareResultOutputService.output(result,type.getOutputFilePath());
             logger.info(">>>>>>>>任务4 比对内容 执行完毕");
 
         } catch (Exception e) {

@@ -11,7 +11,9 @@ public class DataCompareType {
     private String compareName;
     private String compareConfigIndex;
     private String primaryKey;//后面可能变成多个
+    private String outputFilePath;
     DataSyncType datasourceA;
     DataSyncType datasourceB;
+
 
 }

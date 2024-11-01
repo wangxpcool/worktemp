@@ -1,6 +1,7 @@
 package com.kmerit.config;
 
 
+import com.alibaba.druid.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,23 +18,19 @@ public class TaskStatusManager {
     }
 
     public boolean isTaskRunning(String taskId) {
-        System.out.println(taskStatus.size());
+        if(StringUtils.isEmpty(taskId)){
+            return true;
+        }
         return taskStatus.containsKey(taskId);
     }
 
     public void markTaskRunning(String taskId) {
-        System.out.println(taskStatus.size());
 
         taskStatus.put(taskId, true);
-        System.out.println(taskStatus.size());
 
     }
 
     public void markTaskCompleted(String taskId) {
-        System.out.println(taskStatus.size());
-
         taskStatus.remove(taskId);
-        System.out.println(taskStatus.size());
-
     }
 }

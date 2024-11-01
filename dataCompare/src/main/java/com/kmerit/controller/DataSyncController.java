@@ -1,11 +1,13 @@
 package com.kmerit.controller;
 
+import com.alibaba.druid.util.StringUtils;
 import com.kmerit.Service.DataCompareService;
 import com.kmerit.Service.DataSyncService;
 import com.kmerit.config.TaskStatusManager;
 import com.kmerit.entity.DataCompareType;
 import com.kmerit.entity.DataSyncType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,6 +46,10 @@ public class DataSyncController {
      */
     @GetMapping("/compare")
     public String compare(String jobName) {
+        if (StringUtils.isEmpty(jobName)) {
+            return "jobName不能为空";
+
+        }
         if (taskStatusManager.isTaskRunning(jobName)) {
             return "Tasks are already running, please wait.";
         }
@@ -69,7 +75,8 @@ public class DataSyncController {
         compareType.setDatasourceA(dataSourceSyncA);
         compareType.setDatasourceB(dataSourceSyncB);
         compareType.setPrimaryKey("id");
-        return dataCompareService.compare(compareType,jobName);
+        compareType.setOutputFilePath("C:\\Users\\sharping\\Desktop\\tmp\\"+jobName+".txt");
+        return dataCompareService.compare(compareType, jobName);
 
     }
 }
